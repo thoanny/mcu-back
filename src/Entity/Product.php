@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,6 +42,22 @@ class Product
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $logical = null;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: VOD::class, orphanRemoval: true)]
+    private Collection $VODs;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Episode::class, orphanRemoval: true)]
+    private Collection $episodes;
+
+    #[ORM\ManyToMany(targetEntity: Character::class)]
+    private Collection $characters;
+
+    public function __construct()
+    {
+        $this->VODs = new ArrayCollection();
+        $this->episodes = new ArrayCollection();
+        $this->characters = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -150,6 +168,90 @@ class Product
     public function setLogical(int $logical): static
     {
         $this->logical = $logical;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, VOD>
+     */
+    public function getVODs(): Collection
+    {
+        return $this->VODs;
+    }
+
+    public function addVOD(VOD $vOD): static
+    {
+        if (!$this->VODs->contains($vOD)) {
+            $this->VODs->add($vOD);
+            $vOD->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVOD(VOD $vOD): static
+    {
+        if ($this->VODs->removeElement($vOD)) {
+            // set the owning side to null (unless already changed)
+            if ($vOD->getProduct() === $this) {
+                $vOD->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Episode>
+     */
+    public function getEpisodes(): Collection
+    {
+        return $this->episodes;
+    }
+
+    public function addEpisode(Episode $episode): static
+    {
+        if (!$this->episodes->contains($episode)) {
+            $this->episodes->add($episode);
+            $episode->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEpisode(Episode $episode): static
+    {
+        if ($this->episodes->removeElement($episode)) {
+            // set the owning side to null (unless already changed)
+            if ($episode->getProduct() === $this) {
+                $episode->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Character>
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Character $character): static
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters->add($character);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Character $character): static
+    {
+        $this->characters->removeElement($character);
 
         return $this;
     }
