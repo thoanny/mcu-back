@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Characters</h1>
+    <a href="{{ path('app_admin_character_edit') }}">Add character</a>
+
+    {% if characters %}
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for character in characters %}
+                    <tr>
+                        <td>{{ character.id }}</td>
+                        <td>{{ character.name }}</td>
+                        <td><a href="{{ path('app_admin_character_edit', {id: character.id}) }}">Edit</a></td>
+                        <td><a href="{{ path('app_admin_character_delete', {id: character.id}) }}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No character.</p>
+    {% endif %}
+
+{% endblock %}
