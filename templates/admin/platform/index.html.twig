@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Platforms</h1>
+    <p><a href="{{ path('app_admin_platform_edit') }}">Add platform</a></p>
+
+    {% if platforms %}
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Icon</th>
+                <th>Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for platform in platforms %}
+                <tr>
+                    <td>{{ platform.id }}</td>
+                    <td>{% if platform.imageName %}<img src="{{ vich_uploader_asset(platform) }}" width="20" height="20" alt="">{% else %}&times;{% endif %}</td>
+                    <td>{{ platform.name }}</td>
+                    <td><a href="{{ path('app_admin_platform_edit', {id: platform.id}) }}">Edit</a></td>
+                    <td><a href="{{ path('app_admin_platform_delete', {id: platform.id}) }}">Delete</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No platform.</p>
+    {% endif %}
+
+{% endblock %}
