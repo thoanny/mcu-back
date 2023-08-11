@@ -19,6 +19,9 @@
                     <li><a href="{{ path('app_admin_characters') }}">Characters</a></li>
                     <li><a href="{{ path('app_admin_platforms') }}">Platforms</a></li>
                 {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('app_admin_users') }}">Users</a></li>
+                {% endif %}
                 <li><a href="{{ path('app_logout') }}">Logout</a></li>
             {% else %}
                 <li><a href="{{ path('app_register') }}">Register</a></li>
