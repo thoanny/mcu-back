@@ -52,7 +52,7 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Episode::class, orphanRemoval: true)]
     private Collection $episodes;
 
-    #[ORM\ManyToMany(targetEntity: Character::class)]
+    #[ORM\ManyToMany(targetEntity: Character::class, cascade: ['persist'])]
     private Collection $characters;
 
     #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName', size: 'imageSize')]
