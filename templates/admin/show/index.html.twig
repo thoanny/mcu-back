@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Shows</h1>
+    <a href="{{ path('app_admin_show_edit') }}">Add show</a>
+
+    {% if shows %}
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Episodes</th>
+                <th>Released</th>
+                <th>Animation</th>
+                <th>Chronological</th>
+                <th>Logical</th>
+                <th>Characters</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for show in shows %}
+                <tr>
+                    <td>{{ show.id }}</td>
+                    <td>{{ show.title }}</td>
+                    <td>{{ show.episodes|length }}</td>
+                    <td>{{ (show.releasedAt)?show.releasedAt|date:'No' }}</td>
+                    <td>{{ (show.animation)?'Yes':'No' }}</td>
+                    <td>{{ show.chronological }}</td>
+                    <td>{{ show.logical }}</td>
+                    <td>{{ show.characters|join(', ') }}</td>
+                    <td><a href="{{ path('app_admin_show_edit', {id: show.id}) }}">Edit</a></td>
+                    <td><a href="{{ path('app_admin_show_delete', {id: show.id}) }}">Delete</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No show.</p>
+    {% endif %}
+{% endblock %}

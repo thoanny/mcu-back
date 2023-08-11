@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Episodes</h1>
+
+    {% if episodes %}
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Duration</th>
+                <th>Number</th>
+                <th>Show</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for episode in episodes %}
+                <tr>
+                    <td>{{ episode.id }}</td>
+                    <td>{{ episode.title }}</td>
+                    <td>{{ episode.duration }}</td>
+                    <td>{{ episode.number }}</td>
+                    <td>{{ episode.product.title }}</td>
+                    <td><a href="{{ path('app_admin_show_edit', {id: episode.product.id}) }}">Edit</a></td>
+                    <td><a href="{{ path('app_admin_episode_delete', {id: episode.id}) }}">Delete</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No episode.</p>
+    {% endif %}
+{% endblock %}

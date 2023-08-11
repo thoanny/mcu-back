@@ -49,7 +49,7 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: VOD::class, orphanRemoval: true)]
     private Collection $VODs;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Episode::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Episode::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $episodes;
 
     #[ORM\ManyToMany(targetEntity: Character::class, cascade: ['persist'])]
