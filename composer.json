@@ -1,4 +1,6 @@
 {
+    "name": "thoanny/mcu-back",
+    "description": "Backend for mcu.thoanny.fr",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
