@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ShowController extends AbstractController
 {
@@ -65,6 +66,7 @@ class ShowController extends AbstractController
     }
 
     #[Route('/admin/shows/delete/{id}', name: 'app_admin_show_delete')]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete($id): RedirectResponse
     {
         $show = $this->productRepository->findOneBy(['id' => $id, 'type' => 'show']);

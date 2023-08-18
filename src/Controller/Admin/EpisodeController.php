@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class EpisodeController extends AbstractController
 {
@@ -31,6 +32,7 @@ class EpisodeController extends AbstractController
     }
 
     #[Route('/admin/episodes/delete/{id}', name: 'app_admin_episode_delete')]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete($id): RedirectResponse
     {
         $episode = $this->episodeRepository->findOneBy(['id' => $id]);

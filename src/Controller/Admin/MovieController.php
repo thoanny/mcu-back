@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class MovieController extends AbstractController
 {
@@ -64,6 +65,7 @@ class MovieController extends AbstractController
     }
 
     #[Route('/admin/movies/delete/{id}', name: 'app_admin_movie_delete')]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete($id): RedirectResponse
     {
         $movie = $this->productRepository->findOneBy(['id' => $id, 'type' => 'movie']);

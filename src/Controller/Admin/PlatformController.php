@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class PlatformController extends AbstractController
 {
@@ -61,6 +62,7 @@ class PlatformController extends AbstractController
     }
 
     #[Route('/admin/platforms/delete/{id}', name: 'app_admin_platform_delete')]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete($id): Response
     {
         $platform = $this->platformRepository->findOneBy(['id' => $id]);
