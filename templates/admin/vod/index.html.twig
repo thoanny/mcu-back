@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>VODs</h1>
+
+    {% if vods %}
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Movie/Show</th>
+                <th>Plateform</th>
+                <th>Type</th>
+                <th>Edit</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Delete</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for vod in vods %}
+                <tr>
+                    <td>{{ vod.id }}</td>
+                    <td>{{ vod.product.title }}</td>
+                    <td>{{ vod.platform.name }}</td>
+                    <td>{{ vod.type }}</td>
+                    <td><a href="{{ path(((vod.product.type == 'movie') ? 'app_admin_movie_edit' : 'app_admin_show_edit'), {id: vod.product.id}) }}">Edit</a></td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td><a href="{{ path('app_admin_vod_delete', {id: vod.id}) }}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No episode.</p>
+    {% endif %}
+
+{% endblock %}
