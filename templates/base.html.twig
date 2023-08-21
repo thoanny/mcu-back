@@ -21,27 +21,48 @@
         {% endblock %}
     </head>
     <body>
-        <ul>
-            <li><a href="{{ path('app_home') }}">Home</a></li>
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                {% if is_granted('ROLE_MANAGER') %}
-                    <li><a href="{{ path('app_admin_home') }}">Dashboard</a></li>
-                    <li><a href="{{ path('app_admin_characters') }}">Characters</a></li>
-                    <li><a href="{{ path('app_admin_platforms') }}">Platforms</a></li>
-                    <li><a href="{{ path('app_admin_movies') }}">Movies</a></li>
-                    <li><a href="{{ path('app_admin_shows') }}">Shows</a></li>
-                    <li><a href="{{ path('app_admin_episodes') }}">Episodes</a></li>
-                    <li><a href="{{ path('app_admin_vods') }}">VODs</a></li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li><a href="{{ path('app_admin_users') }}">Users</a></li>
-                {% endif %}
-                <li><a href="{{ path('app_logout') }}">Logout</a></li>
-            {% else %}
-                <li><a href="{{ path('app_register') }}">Register</a></li>
-                <li><a href="{{ path('app_login') }}">Login</a></li>
-            {% endif %}
-        </ul>
-        {% block body %}{% endblock %}
+        <div class="container mx-auto my-6 px-4 max-w-5xl">
+            <div class="navbar bg-base-100 shadow-lg rounded-box border mb-6">
+                <div class="navbar-start">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <div class="dropdown">
+                            <label tabindex="0" class="btn btn-ghost lg:hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                            </label>
+                            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                {% include '_menu.html.twig' %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <a class="btn btn-ghost normal-case text-xl" href="{{ path('app_home') }}">MCU API</a>
+                </div>
+                <div class="navbar-center hidden lg:flex">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <ul class="menu menu-horizontal px-1">
+                            {% include '_menu.html.twig' %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="navbar-end gap-2">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a href="{{ path('app_logout') }}" class="btn btn-square">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                        </a>
+                    {% else %}
+                        <a href="{{ path('app_register') }}" class="btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+                            Register
+                        </a>
+                        <a href="{{ path('app_login') }}" class="btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                            Login
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% block body %}{% endblock %}
+        </div>
+
     </body>
 </html>
