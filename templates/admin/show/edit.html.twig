@@ -1,43 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    <h1>Edit Show</h1>
-
-    {{ form(form) }}
-
-    <script>
-        const addFormToCollection = (e) => {
-            const collectionHolder = document.querySelector('#' + e.currentTarget.dataset.collectionHolderId);
-            const item = document.createElement('div');
-
-            var numberOfChildren = collectionHolder.children.length;
-            console.log(numberOfChildren)
-
-            item.innerHTML = collectionHolder
-                .dataset
-                .prototype
-                .replace(
-                    /__name__/g,
-                    numberOfChildren
-                );
-
-            collectionHolder.appendChild(item);
-            collectionHolder.dataset.index++;
-        };
-
-        document
-            .querySelector('#show_add_episode')
-            .addEventListener("click", addFormToCollection)
-
-        document
-            .querySelector('#show_add_vod')
-            .addEventListener("click", addFormToCollection)
-    </script>
-
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
+    <div class="max-w-md mx-auto">
+        <div class="flex items-center gap-2 justify-between mb-6">
+            <h1 class="text-4xl font-semibold">Edit show</h1>
+        </div>
+        {{ form(form) }}
+    </div>
 {% endblock %}

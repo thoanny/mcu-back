@@ -1,42 +1,44 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Shows</h1>
-    <a href="{{ path('app_admin_show_edit') }}">Add show</a>
-    <a href="{{ path('app_admin_episodes') }}">All episodes</a>
+    <div class="flex items-center gap-2 justify-between mb-6">
+        <h1 class="text-4xl font-semibold">Shows</h1>
+        <div class="flex gap-2">
+            <a href="{{ path('app_admin_episodes') }}" class="btn btn-secondary">All episodes</a>
+            <a href="{{ path('app_admin_show_edit') }}" class="btn btn-primary">Add show</a>
+        </div>
+    </div>
 
     {% if shows %}
-        <table border="1" cellpadding="5" cellspacing="0">
+        <table class="table">
             <thead>
             <tr>
-                <th>#</th>
+                <th width="1" class="text-center">#</th>
                 <th>Title</th>
-                <th>Episodes</th>
-                <th>Released</th>
-                <th>Animation</th>
-                <th>Chronological</th>
-                <th>Logical</th>
-                <th>Characters</th>
-                <th>Edit</th>
+                <th class="text-center">Episodes</th>
+                <th class="text-center">Released</th>
+                <th class="text-center">Animation</th>
+                <th class="text-center">Chronological</th>
+                <th class="text-center">Logical</th>
+                <th width="1" class="text-center">Edit</th>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <th>Delete</th>
+                    <th width="1" class="text-center">Delete</th>
                 {% endif %}
             </tr>
             </thead>
             <tbody>
             {% for show in shows %}
                 <tr>
-                    <td>{{ show.id }}</td>
-                    <td>{{ show.title }}</td>
-                    <td>{{ show.episodes|length }}</td>
-                    <td>{{ (show.releasedAt)?show.releasedAt|date:'No' }}</td>
-                    <td>{{ (show.animation)?'Yes':'No' }}</td>
-                    <td>{{ show.chronological }}</td>
-                    <td>{{ show.logical }}</td>
-                    <td>{{ show.characters|join(', ') }}</td>
-                    <td><a href="{{ path('app_admin_show_edit', {id: show.id}) }}">Edit</a></td>
+                    <td class="text-center">{{ show.id }}</td>
+                    <td class="font-bold">{{ show.title }}</td>
+                    <td class="text-center">{{ show.episodes|length }}</td>
+                    <td class="text-center">{{ (show.releasedAt)?show.releasedAt|date:'No' }}</td>
+                    <td class="text-center">{{ (show.animation)?'Yes':'No' }}</td>
+                    <td class="text-center">{{ show.chronological }}</td>
+                    <td class="text-center">{{ show.logical }}</td>
+                    <td><a href="{{ path('app_admin_show_edit', {id: show.id}) }}" class="btn btn-primary btn-xs">Edit</a></td>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="{{ path('app_admin_show_delete', {id: show.id}) }}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                        <td><a href="{{ path('app_admin_show_delete', {id: show.id}) }}" class="btn btn-primary btn-xs" onclick="return confirm('Are you sure?')">Delete</a></td>
                     {% endif %}
                 </tr>
             {% endfor %}

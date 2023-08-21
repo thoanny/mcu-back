@@ -24,31 +24,115 @@ class ShowType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class)
+            ->add('title', TextType::class, [
+                'label_attr' => [
+                    'class' => 'label label-text'
+                ],
+                'attr' => [
+                    'class' => 'input input-bordered'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('releasedAt', DateType::class, [
                 'required' => false,
                 'widget' => 'single_text',
-                'input' => 'datetime_immutable'
+                'input' => 'datetime_immutable',
+                'label_attr' => [
+                    'class' => 'label label-text'
+                ],
+                'attr' => [
+                    'class' => 'input input-bordered'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('trailer', UrlType::class, [
                 'required' => false,
+                'label' => 'Trailer URL',
+                'label_attr' => [
+                    'class' => 'label label-text'
+                ],
+                'attr' => [
+                    'class' => 'input input-bordered'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('synopsis', TextareaType::class, [
                 'required' => false,
+                'label_attr' => [
+                    'class' => 'label label-text'
+                ],
+                'attr' => [
+                    'class' => 'textarea textarea-bordered'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('animation', CheckboxType::class, [
                 'required' => false,
+                'label' => 'Animation',
+                'label_attr' => [
+                    'class' => 'label label-text'
+                ],
+                'attr' => [
+                    'class' => 'toggle toggle-primary'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('duration', IntegerType::class, [
                 'required' => false,
+                'label_attr' => [
+                    'class' => 'label label-text'
+                ],
+                'attr' => [
+                    'class' => 'input input-bordered'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control'
+                ]
             ])
-            ->add('chronological', IntegerType::class)
-            ->add('logical', IntegerType::class)
+            ->add('chronological', IntegerType::class, [
+                'label_attr' => [
+                    'class' => 'label label-text'
+                ],
+                'attr' => [
+                    'class' => 'input input-bordered'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('logical', IntegerType::class, [
+                'label_attr' => [
+                    'class' => 'label label-text'
+                ],
+                'attr' => [
+                    'class' => 'input input-bordered'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
-            ])
-            ->add('imageFile', VichImageType::class, [
-                'required' => false,
+                'label' => 'Thumbnail',
+                'label_attr' => [
+                    'class' => 'label label-text'
+                ],
+                'attr' => [
+                    'class' => 'file-input file-input-bordered w-full'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('characters', EntityType::class, [
                 'class' => Character::class,
@@ -56,17 +140,30 @@ class ShowType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
+                'label_attr' => [
+                    'class' => 'text-xl font-semibold'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control mt-4'
+                ],
             ])
             ->add('episodes', CollectionType::class, [
                 'entry_type' => EpisodeType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'by_reference' => false,
+                'label_attr' => [
+                    'class' => 'text-xl font-semibold'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control mt-4'
+                ],
             ])
             ->add('add_episode', ButtonType::class, [
                 'label' => 'Add episode',
                 'attr' => [
-                    'data-collection-holder-id' => 'show_episodes'
+                    'data-collection-holder-id' => 'show_episodes',
+                    'class' => 'btn btn-primary btn-sm mt-2'
                 ]
             ])
             ->add('vods', CollectionType::class, [
@@ -74,15 +171,29 @@ class ShowType extends AbstractType
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'by_reference' => false,
+                'label_attr' => [
+                    'class' => 'text-xl font-semibold'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control mt-4'
+                ],
+                'label' => 'VOD'
             ])
             ->add('add_vod', ButtonType::class, [
                 'label' => 'Add VOD',
                 'attr' => [
-                    'data-collection-holder-id' => 'show_vods'
+                    'data-collection-holder-id' => 'show_vods',
+                    'class' => 'btn btn-primary btn-sm mt-2'
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Save'
+                'label' => 'Save show',
+                'attr' => [
+                    'class' => 'btn btn-primary'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control mt-4'
+                ],
             ])
         ;
     }

@@ -1,39 +1,41 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Movies</h1>
-    <a href="{{ path('app_admin_movie_edit') }}">Add movie</a>
+    <div class="flex items-center gap-2 justify-between mb-6">
+        <h1 class="text-4xl font-semibold">Movies</h1>
+        <div class="flex gap-2">
+            <a href="{{ path('app_admin_movie_edit') }}" class="btn btn-primary">Add movie</a>
+        </div>
+    </div>
 
     {% if movies %}
-        <table border="1" cellpadding="5" cellspacing="0">
+        <table class="table">
             <thead>
             <tr>
-                <th>#</th>
+                <th width="1" class="text-center">#</th>
                 <th>Title</th>
-                <th>Released</th>
-                <th>Animation</th>
-                <th>Chronological</th>
-                <th>Logical</th>
-                <th>Characters</th>
-                <th>Edit</th>
+                <th class="text-center">Released</th>
+                <th class="text-center">Animation</th>
+                <th class="text-center">Chronological</th>
+                <th class="text-center">Logical</th>
+                <th width="1" class="text-center">Edit</th>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <th>Delete</th>
+                    <th width="1" class="text-center">Delete</th>
                 {% endif %}
             </tr>
             </thead>
             <tbody>
             {% for movie in movies %}
                 <tr>
-                    <td>{{ movie.id }}</td>
-                    <td>{{ movie.title }}</td>
-                    <td>{{ (movie.releasedAt)?movie.releasedAt|date:'No' }}</td>
-                    <td>{{ (movie.animation)?'Yes':'No' }}</td>
-                    <td>{{ movie.chronological }}</td>
-                    <td>{{ movie.logical }}</td>
-                    <td>{{ movie.characters|join(', ') }}</td>
-                    <td><a href="{{ path('app_admin_movie_edit', {id: movie.id}) }}">Edit</a></td>
+                    <td class="text-center">{{ movie.id }}</td>
+                    <td class="font-bold">{{ movie.title }}</td>
+                    <td class="text-center">{{ (movie.releasedAt)?movie.releasedAt|date:'No' }}</td>
+                    <td class="text-center">{{ (movie.animation)?'Yes':'No' }}</td>
+                    <td class="text-center">{{ movie.chronological }}</td>
+                    <td class="text-center">{{ movie.logical }}</td>
+                    <td><a href="{{ path('app_admin_movie_edit', {id: movie.id}) }}" class="btn btn-primary btn-xs">Edit</a></td>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="{{ path('app_admin_movie_delete', {id: movie.id}) }}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                        <td><a href="{{ path('app_admin_movie_delete', {id: movie.id}) }}" onclick="return confirm('Are you sure?')" class="btn btn-primary btn-xs">Delete</a></td>
                     {% endif %}
                 </tr>
             {% endfor %}

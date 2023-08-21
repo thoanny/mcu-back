@@ -1,30 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    <h1>Characters</h1>
-    <a href="{{ path('app_admin_character_edit') }}">Add character</a>
+    <div class="flex items-center gap-2 justify-between mb-6">
+        <h1 class="text-4xl font-semibold">Characters</h1>
+        <div class="flex gap-2">
+            <a href="{{ path('app_admin_character_edit') }}" class="btn btn-primary">Add character</a>
+        </div>
+    </div>
 
     {% if characters %}
-        <table border="1" cellpadding="5" cellspacing="0">
+        <table class="table">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th width="1" class="text-center">#</th>
                     <th>Name</th>
-                    <th>Edit</th>
+                    <th width="1" class="text-center">Edit</th>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <th>Delete</th>
+                        <th width="1">Delete</th>
                     {% endif %}
                 </tr>
             </thead>
             <tbody>
                 {% for character in characters %}
                     <tr>
-                        <td>{{ character.id }}</td>
-                        <td>{{ character.name }}</td>
-                        <td><a href="{{ path('app_admin_character_edit', {id: character.id}) }}">Edit</a></td>
+                        <td class="text-center">{{ character.id }}</td>
+                        <td class="font-bold">{{ character.name }}</td>
+                        <td><a href="{{ path('app_admin_character_edit', {id: character.id}) }}" class="btn btn-primary btn-xs">Edit</a></td>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <td><a href="{{ path('app_admin_character_delete', {id: character.id}) }}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                            <td><a href="{{ path('app_admin_character_delete', {id: character.id}) }}" class="btn btn-primary btn-xs" onclick="return confirm('Are you sure?')">Delete</a></td>
                         {% endif %}
                     </tr>
                 {% endfor %}

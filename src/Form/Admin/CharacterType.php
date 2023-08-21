@@ -14,8 +14,26 @@ class CharacterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('submit', SubmitType::class)
+            ->add('name', TextType::class, [
+                'label_attr' => [
+                    'class' => 'label label-text'
+                ],
+                'attr' => [
+                    'class' => 'input input-bordered'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Save character',
+                'attr' => [
+                    'class' => 'btn btn-primary'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control mt-4'
+                ],
+            ])
         ;
     }
 

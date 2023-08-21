@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+form label.label {
+    @apply justify-start;
+}
+label.required:after {
+    @apply text-primary;
+    content: '*';
+}
+
+/* VOD, Episodes */
+
+#movie_vods,
+#show_vods,
+#show_episodes {
+    @apply flex flex-col gap-2 mt-2;
+}
+
+#movie_vods > div,
+#show_vods > div,
+#show_episodes > div {
+    @apply bg-neutral p-4 pt-1;
+}
+
+/* Characters */
+
+#movie_characters,
+#show_characters {
+    @apply flex flex-wrap gap-1 mt-2;
+}
+
+#movie_characters label,
+#show_characters label {
+    @apply btn btn-sm cursor-pointer;
+}
+
+#movie_characters input,
+#show_characters input {
+    @apply hidden;
+}
+
+#movie_characters input:checked+label,
+#show_characters input:checked+label {
+    @apply btn-primary;
+}

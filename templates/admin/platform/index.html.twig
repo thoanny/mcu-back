@@ -1,33 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    <h1>Platforms</h1>
-    <p><a href="{{ path('app_admin_platform_edit') }}">Add platform</a></p>
-    <a href="{{ path('app_admin_vods') }}">All VODs</a>
+    <div class="flex items-center gap-2 justify-between mb-6">
+        <h1 class="text-4xl font-semibold">Platforms</h1>
+        <div class="flex gap-2">
+            <a href="{{ path('app_admin_vods') }}" class="btn btn-secondary">All VODs</a>
+            <a href="{{ path('app_admin_platform_edit') }}" class="btn btn-primary">Add platform</a>
+        </div>
+    </div>
 
     {% if platforms %}
-        <table border="1" cellpadding="5" cellspacing="0">
+        <table class="table">
             <thead>
             <tr>
-                <th>#</th>
-                <th>Icon</th>
+                <th width="1" class="text-center">#</th>
+                <th width="1" class="text-center">Icon</th>
                 <th>Name</th>
-                <th>Edit</th>
+                <th width="1" class="text-center">Edit</th>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <th>Delete</th>
+                    <th width="1" class="text-center">Delete</th>
                 {% endif %}
             </tr>
             </thead>
             <tbody>
             {% for platform in platforms %}
                 <tr>
-                    <td>{{ platform.id }}</td>
-                    <td>{% if platform.imageName %}<img src="{{ vich_uploader_asset(platform) }}" width="20" height="20" alt="">{% else %}&times;{% endif %}</td>
-                    <td>{{ platform.name }}</td>
-                    <td><a href="{{ path('app_admin_platform_edit', {id: platform.id}) }}">Edit</a></td>
+                    <td class="text-center">{{ platform.id }}</td>
+                    <td class="text-center">{% if platform.imageName %}<img src="{{ vich_uploader_asset(platform) }}" width="20" height="20" alt="">{% else %}&times;{% endif %}</td>
+                    <td class="font-bold">{{ platform.name }}</td>
+                    <td><a href="{{ path('app_admin_platform_edit', {id: platform.id}) }}" class="btn btn-primary btn-xs">Edit</a></td>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="{{ path('app_admin_platform_delete', {id: platform.id}) }}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                        <td><a href="{{ path('app_admin_platform_delete', {id: platform.id}) }}" class="btn btn-primary btn-xs" onclick="return confirm('Are you sure?')">Delete</a></td>
                     {% endif %}
                 </tr>
             {% endfor %}

@@ -1,29 +1,41 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Users</h1>
+    <div class="flex items-center gap-2 justify-between mb-6">
+        <h1 class="text-4xl font-semibold">Users</h1>
+    </div>
 
     {% if users %}
-        <table border="1" cellpadding="5" cellspacing="0">
+        <table class="table">
             <thead>
             <tr>
-                <th>#</th>
+                <th width="1" class="text-center">#</th>
                 <th>Email</th>
-                <th>Roles</th>
-                <th>Created</th>
-                <th>Last login</th>
-                <th>Verified</th>
+                <th width="1" class="text-center">Roles</th>
+                <th class="text-center">Created</th>
+                <th class="text-center">Last login</th>
+                <th width="1" class="text-center">Verified</th>
             </tr>
             </thead>
             <tbody>
             {% for user in users %}
                 <tr>
-                    <td>{{ user.id }}</td>
+                    <td class="text-center">{{ user.id }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.roles|join(', ') }}</td>
-                    <td>{{ user.createdAt|date }}</td>
-                    <td>{{ user.lastLoginAt|date }}</td>
-                    <td>{{ (user.verified)?'Yes':'No' }}</td>
+                    <td class="text-center">
+                        <div class="badge badge-primary">
+                            {% if 'ROLE_ADMIN' in user.roles %}
+                                Administrator
+                            {% elseif 'ROLE_MANAGER' in user.roles %}
+                                Manager
+                            {% else %}
+                                User
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td class="text-center">{{ user.createdAt|date }}</td>
+                    <td class="text-center">{{ user.lastLoginAt|date }}</td>
+                    <td class="text-center">{{ (user.verified)?'Yes':'No' }}</td>
                 </tr>
             {% endfor %}
             </tbody>

@@ -1,20 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Episodes</h1>
+    <div class="flex items-center gap-2 justify-between mb-6">
+        <h1 class="text-4xl font-semibold">Episodes</h1>
+    </div>
 
     {% if episodes %}
-        <table border="1" cellpadding="5" cellspacing="0">
+        <table class="table">
             <thead>
             <tr>
-                <th>#</th>
+                <th width="1" class="text-center">#</th>
                 <th>Title</th>
-                <th>Duration</th>
-                <th>Number</th>
-                <th>Show</th>
-                <th>Edit</th>
+                <th class="text-center">Duration</th>
+                <th class="text-center">Number</th>
+                <th class="text-center">Show</th>
+                <th width="1" class="text-center">Edit</th>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <th>Delete</th>
+                    <th width="1" class="text-center">Delete</th>
                 {% endif %}
             </tr>
             </thead>
@@ -22,13 +24,13 @@
             {% for episode in episodes %}
                 <tr>
                     <td>{{ episode.id }}</td>
-                    <td>{{ episode.title }}</td>
-                    <td>{{ episode.duration }}</td>
-                    <td>{{ episode.number }}</td>
-                    <td>{{ episode.product.title }}</td>
-                    <td><a href="{{ path('app_admin_show_edit', {id: episode.product.id}) }}">Edit</a></td>
+                    <td class="font-bold">{{ episode.title }}</td>
+                    <td class="text-center">{{ episode.duration }}</td>
+                    <td class="text-center">{{ episode.number }}</td>
+                    <td class="text-center">{{ episode.product.title }}</td>
+                    <td><a href="{{ path('app_admin_show_edit', {id: episode.product.id}) }}" class="btn btn-primary btn-xs">Edit</a></td>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="{{ path('app_admin_episode_delete', {id: episode.id}) }}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                        <td><a href="{{ path('app_admin_episode_delete', {id: episode.id}) }}" class="btn btn-primary btn-xs" onclick="return confirm('Are you sure?')">Delete</a></td>
                     {% endif %}
                 </tr>
             {% endfor %}

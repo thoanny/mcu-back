@@ -14,9 +14,39 @@ class EpisodeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class)
-            ->add('duration', IntegerType::class)
-            ->add('number', IntegerType::class)
+            ->add('title', TextType::class, [
+                'label_attr' => [
+                    'class' => 'label label-text'
+                ],
+                'attr' => [
+                    'class' => 'input input-bordered'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('duration', IntegerType::class, [
+                'label_attr' => [
+                    'class' => 'label label-text'
+                ],
+                'attr' => [
+                    'class' => 'input input-bordered'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('number', IntegerType::class, [
+                'label_attr' => [
+                    'class' => 'label label-text'
+                ],
+                'attr' => [
+                    'class' => 'input input-bordered'
+                ],
+                'row_attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
         ;
     }
 
