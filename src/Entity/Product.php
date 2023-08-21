@@ -46,7 +46,7 @@ class Product
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $logical = null;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: VOD::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: VOD::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $VODs;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Episode::class, cascade: ['persist'], orphanRemoval: true)]

@@ -6,7 +6,9 @@ use App\Entity\Character;
 use App\Entity\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -51,6 +53,18 @@ class MovieType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
+            ])
+            ->add('vods', CollectionType::class, [
+                'entry_type' => VODType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+            ])
+            ->add('add_vod', ButtonType::class, [
+                'label' => 'Add VOD',
+                'attr' => [
+                    'data-collection-holder-id' => 'movie_vods'
+                ]
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Save'

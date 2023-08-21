@@ -6,4 +6,29 @@
 
    {{ form(form) }}
 
+    <script>
+        const addFormToCollection = (e) => {
+            const collectionHolder = document.querySelector('#' + e.currentTarget.dataset.collectionHolderId);
+            const item = document.createElement('div');
+
+            var numberOfChildren = collectionHolder.children.length;
+            console.log(numberOfChildren)
+
+            item.innerHTML = collectionHolder
+                .dataset
+                .prototype
+                .replace(
+                    /__name__/g,
+                    numberOfChildren
+                );
+
+            collectionHolder.appendChild(item);
+            collectionHolder.dataset.index++;
+        };
+
+        document
+            .querySelector('#movie_add_vod')
+            .addEventListener("click", addFormToCollection)
+    </script>
+
 {% endblock %}
