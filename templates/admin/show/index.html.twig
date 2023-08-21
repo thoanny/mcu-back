@@ -17,7 +17,9 @@
                 <th>Logical</th>
                 <th>Characters</th>
                 <th>Edit</th>
-                <th>Delete</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Delete</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -32,7 +34,9 @@
                     <td>{{ show.logical }}</td>
                     <td>{{ show.characters|join(', ') }}</td>
                     <td><a href="{{ path('app_admin_show_edit', {id: show.id}) }}">Edit</a></td>
-                    <td><a href="{{ path('app_admin_show_delete', {id: show.id}) }}">Delete</a></td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td><a href="{{ path('app_admin_show_delete', {id: show.id}) }}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>

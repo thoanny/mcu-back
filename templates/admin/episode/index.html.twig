@@ -13,7 +13,9 @@
                 <th>Number</th>
                 <th>Show</th>
                 <th>Edit</th>
-                <th>Delete</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Delete</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -25,7 +27,9 @@
                     <td>{{ episode.number }}</td>
                     <td>{{ episode.product.title }}</td>
                     <td><a href="{{ path('app_admin_show_edit', {id: episode.product.id}) }}">Edit</a></td>
-                    <td><a href="{{ path('app_admin_episode_delete', {id: episode.id}) }}">Delete</a></td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td><a href="{{ path('app_admin_episode_delete', {id: episode.id}) }}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>

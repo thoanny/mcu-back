@@ -13,7 +13,9 @@
                 <th>Icon</th>
                 <th>Name</th>
                 <th>Edit</th>
-                <th>Delete</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Delete</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -23,7 +25,9 @@
                     <td>{% if platform.imageName %}<img src="{{ vich_uploader_asset(platform) }}" width="20" height="20" alt="">{% else %}&times;{% endif %}</td>
                     <td>{{ platform.name }}</td>
                     <td><a href="{{ path('app_admin_platform_edit', {id: platform.id}) }}">Edit</a></td>
-                    <td><a href="{{ path('app_admin_platform_delete', {id: platform.id}) }}">Delete</a></td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td><a href="{{ path('app_admin_platform_delete', {id: platform.id}) }}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>

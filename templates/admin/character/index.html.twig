@@ -12,7 +12,9 @@
                     <th>#</th>
                     <th>Name</th>
                     <th>Edit</th>
-                    <th>Delete</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Delete</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -21,7 +23,9 @@
                         <td>{{ character.id }}</td>
                         <td>{{ character.name }}</td>
                         <td><a href="{{ path('app_admin_character_edit', {id: character.id}) }}">Edit</a></td>
-                        <td><a href="{{ path('app_admin_character_delete', {id: character.id}) }}">Delete</a></td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <td><a href="{{ path('app_admin_character_delete', {id: character.id}) }}" onclick="return confirm('Are you sure?')">Delete</a></td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>
