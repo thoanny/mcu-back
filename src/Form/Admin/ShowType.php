@@ -69,6 +69,18 @@ class ShowType extends AbstractType
                     'data-collection-holder-id' => 'show_episodes'
                 ]
             ])
+            ->add('vods', CollectionType::class, [
+                'entry_type' => VODType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+            ])
+            ->add('add_vod', ButtonType::class, [
+                'label' => 'Add VOD',
+                'attr' => [
+                    'data-collection-holder-id' => 'show_vods'
+                ]
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Save'
             ])
